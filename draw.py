@@ -80,12 +80,13 @@ thread.start()
 
 
 positions = ["up", "down"]
+divider = 4
 for i in range(len(timestamps)):
-    if i % 4 == 0:
+    if i % divider == 0:
         while time.time() < start_time + timestamps[i]:
             time.sleep(0.01)
         print("%f" % (timestamps[i]))
-        pos = positions[(i % 8) // 4] # 0 or 1
+        pos = positions[(i % (divider * 2)) // divider] # 0 or 1
         start_point, end_point = windshield[pos]
         image = cv2.imread(path)
         image = cv2.line(image, start_point, end_point, color, thickness)
