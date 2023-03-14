@@ -62,6 +62,7 @@ cv2.waitKey(1000)
 
 windshield = {"up" : ((100, 100), (300, 300)),
             "down" : ((580, 300), (300, 300))}
+
 # Blue color in BGR
 color = (0, 0, 255)
   
@@ -72,13 +73,12 @@ def play_music(filename):
     playsound(filename)
 
 
+start_time = time.time()
 
 thread = Thread(target = play_music, args = [filename])
 thread.start()
 
 
-
-start_time = time.time()
 positions = ["up", "down"]
 for i in range(len(timestamps)):
     if i % 4 == 0:
@@ -90,6 +90,7 @@ for i in range(len(timestamps)):
         image = cv2.imread(path)
         image = cv2.line(image, start_point, end_point, color, thickness)
         cv2.imshow(window_name, image)
+        thickness += 5
         k = cv2.waitKey(1)
         if k == 27:    # Esc key to stop
             break
