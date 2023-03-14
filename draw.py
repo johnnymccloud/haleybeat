@@ -67,7 +67,7 @@ windshield = {"up" : ((100, 100), (300, 300)),
 color = (0, 0, 255)
   
 # Line thickness of 2 px
-thickness = 5
+thickness = 10
 
 def play_music(filename):
     playsound(filename)
@@ -90,7 +90,6 @@ for i in range(len(timestamps)):
         image = cv2.imread(path)
         image = cv2.line(image, start_point, end_point, color, thickness)
         cv2.imshow(window_name, image)
-        thickness += 5
         k = cv2.waitKey(1)
         if k == 27:    # Esc key to stop
             break
