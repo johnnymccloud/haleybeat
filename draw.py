@@ -3,6 +3,8 @@ import cv2
 import time   
 import sys
 from aubio import tempo, source
+from playsound import playsound
+from threading import Thread
 
 win_s = 512                 # fft size
 hop_s = win_s // 2          # hop size
@@ -68,6 +70,16 @@ color = (0, 0, 255)
 # Line thickness of 2 px
 thickness = 2
 
+def play_music(filename):
+    playsound(filename)
+
+
+
+thread = Thread(target = play_music, args = [filename])
+thread.start()
+
+
+
 start_time = time.time()
 for i in range(len(timestamps)):
     if i % 4 == 0:
@@ -81,4 +93,4 @@ for i in range(len(timestamps)):
         if k == 27:    # Esc key to stop
             break
 
-
+thread.join()
