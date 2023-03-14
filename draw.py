@@ -60,15 +60,13 @@ window_name = 'HaleyBeat'
 cv2.imshow(window_name, image) 
 cv2.waitKey(1000)
 
-
-start_point = (100, 100)
-end_point = (300, 300)
-  
+windshield = {"up" : ((100, 100), (300, 300)),
+            "down" : ((580, 300), (300, 300))}
 # Blue color in BGR
 color = (0, 0, 255)
   
 # Line thickness of 2 px
-thickness = 2
+thickness = 5
 
 def play_music(filename):
     playsound(filename)
@@ -81,14 +79,17 @@ thread.start()
 
 
 start_time = time.time()
+positions = ["up", "down"]
 for i in range(len(timestamps)):
     if i % 4 == 0:
         while time.time() < start_time + timestamps[i]:
             time.sleep(0.01)
         print("%f" % (timestamps[i]))
+        pos = positions[(i % 8) // 4] # 0 or 1
+        start_point, end_point = windshield[pos]
+        image = cv2.imread(path)
         image = cv2.line(image, start_point, end_point, color, thickness)
-        cv2.imshow(window_name, image) 
-        thickness += 5
+        cv2.imshow(window_name, image)
         k = cv2.waitKey(1)
         if k == 27:    # Esc key to stop
             break
